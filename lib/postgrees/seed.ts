@@ -1,4 +1,4 @@
-import { db, sql } from '@/lib/kysely'
+import { db, sql } from '@/lib/postgrees/kysely'
 
 export async function seed() {
   const createTable = await db.schema
