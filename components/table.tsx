@@ -1,8 +1,8 @@
-import { db } from '@/lib/postgrees/kysely'
-import { timeAgo } from '@/lib/postgrees/utils'
+import { db } from '@/lib/postgres/kysely'
+import { timeAgo } from '@/lib/postgres/utils'
 import Image from 'next/image'
 import RefreshButton from './refresh-button'
-import { seed } from '@/lib/postgrees/seed'
+import { seed } from '@/lib/postgres/seed'
 
 export default async function Table() {
   let users

@@ -4,7 +4,8 @@ import React, { FC, Suspense, useState } from 'react'
 import Table from './table'
 import ExpandingArrow from './expanding-arrow'
 import TablePlaceholder from './table-placeholder'
-import { StackSelection } from './StackSelection'
+import { OmniBridge } from './OmniBridge'
+import { faker } from '@faker-js/faker';
 
 export const Main: FC = () => {
 
@@ -30,7 +31,7 @@ export const Main: FC = () => {
             <p className="sm:mt-0 flex space-x-1 text-gray-600 text-sm font-medium px-10 py-2 pb-10 ">
                 Test different stacks on NextJs
             </p>
-            <StackSelection />
+            <OmniBridge />
             <Suspense fallback={<TablePlaceholder />}>
                 <Table />
             </Suspense>

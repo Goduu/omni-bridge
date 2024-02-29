@@ -28,7 +28,7 @@
     "**/*.ts",
     "**/*.tsx",
     ".next/types/**/*.ts",
-    "lib/postgrees/seed.ts"
+    "lib/postgres/seed.ts"
   ],
   "exclude": ["node_modules"]
 }

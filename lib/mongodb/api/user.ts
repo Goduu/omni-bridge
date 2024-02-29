@@ -1,3 +1,4 @@
+import { faker } from "@faker-js/faker";
 import clientPromise from "../mongodb";
 
 export interface UserProps {
