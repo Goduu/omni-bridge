@@ -7,7 +7,7 @@ export const Footer: FC = () => {
     <footer>
       <div className="mt-16 flex flex-col items-center">
         <Link
-          href="https://github.com/vercel/examples/tree/main/storage/postgres-kysely"
+          href="https://github.com/Goduu/omni-bridge"
           className="flex items-center gap-2 p-2"
         >
           <Image

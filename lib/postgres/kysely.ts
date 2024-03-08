@@ -9,6 +9,7 @@ interface UserTable {
   name: string
   email: string
   image: string
+  status: string
 
   // You can specify a different type for each operation (select, insert and
   // update) using the `ColumnType<SelectType, InsertType, UpdateType>`

@@ -4,8 +4,8 @@ import React, { FC, Suspense, useState } from 'react'
 import Table from './table'
 import ExpandingArrow from './expanding-arrow'
 import TablePlaceholder from './table-placeholder'
-import { OmniBridge } from './OmniBridge'
-import { faker } from '@faker-js/faker';
+import { OmniBridge } from './OmniBridge/OmniBridge'
+import { ShowAnalyticsButton } from './Analytics/ShowAnalyticsButton'
 
 export const Main: FC = () => {
 
@@ -35,6 +35,7 @@ export const Main: FC = () => {
             <Suspense fallback={<TablePlaceholder />}>
                 <Table />
             </Suspense>
+            <ShowAnalyticsButton />
         </main>
     )
 }

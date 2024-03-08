@@ -1,25 +1,15 @@
-import { faker } from "@faker-js/faker";
+import { User } from "@/lib/objects/User";
 import clientPromise from "../mongodb";
-
-export interface UserProps {
-  name: string;
-  username: string;
-  email: string;
-  image: string;
-  bio: string;
-  followers: number;
-  verified: boolean;
-}
 
 export interface ResultProps {
   _id: string;
-  users: UserProps[];
+  users: User[];
 }
 
-export async function getUser(username: string): Promise<UserProps | null> {
+export async function getUser(username: string): Promise<User | null> {
   const client = await clientPromise;
   const collection = client.db('test').collection('users');
-  const results = await collection.findOne<UserProps>(
+  const results = await collection.findOne<User>(
     { username },
     { projection: { _id: 0, emailVerified: 0 } }
   );
@@ -32,10 +22,10 @@ export async function getUser(username: string): Promise<UserProps | null> {
   }
 }
 
-export async function getFirstUser(): Promise<UserProps | null> {
+export async function getFirstUser(): Promise<User | null> {
   const client = await clientPromise;
   const collection = client.db('test').collection('users');
-  const results = await collection.findOne<UserProps>(
+  const results = await collection.findOne<User>(
     {},
     {
       projection: { _id: 0, emailVerified: 0 }
@@ -56,13 +46,7 @@ export async function getAllUsers(): Promise<ResultProps[]> {
   return await collection
     .aggregate<ResultProps>([
       {
-        //sort by follower count
-        $sort: {
-          followers: -1
-        }
-      },
-      {
-        $limit: 100
+        $limit: 1000
       },
       {
         $group: {
@@ -72,11 +56,9 @@ export async function getAllUsers(): Promise<ResultProps[]> {
           users: {
             $push: {
               name: '$name',
-              username: '$username',
               email: '$email',
               image: '$image',
-              followers: '$followers',
-              verified: '$verified'
+              status: '$status'
             }
           },
           count: { $sum: 1 }
@@ -92,11 +74,11 @@ export async function getAllUsers(): Promise<ResultProps[]> {
     .toArray();
 }
 
-export async function searchUser(query: string): Promise<UserProps[]> {
+export async function searchUser(query: string): Promise<User[]> {
   const client = await clientPromise;
   const collection = client.db('test').collection('users');
   return await collection
-    .aggregate<UserProps>([
+    .aggregate<User>([
       {
         $search: {
           index: 'name-index',

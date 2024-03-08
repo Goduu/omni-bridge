@@ -1,15 +1,14 @@
 import clientPromise from "@/lib/mongodb/mongodb";
 import { getRandomUser } from "@/utils/getRandomUser";
 
-async function insertRandomUser() {
+async function readAllUsers() {
     const client = await clientPromise;
     const collection = client.db('test').collection('users');
-    await collection.insertOne(getRandomUser());
+    return await collection.find().toArray();
 }
 
 
 export async function POST() {
-    const res = await insertRandomUser()
-    console.log('res', res)
-    return Response.json({ success: true })
+    const users = await readAllUsers()
+    return Response.json({ users: users })
 }
