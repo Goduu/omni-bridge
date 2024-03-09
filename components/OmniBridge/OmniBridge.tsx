@@ -27,6 +27,10 @@ export const OmniBridge: FC = () => {
                                         deleteAllUsers(selectedDb).then((response) => {
                                             if (response) {
                                                 deleteTime = response.timeElapsed
+                                                console.log('createTime', createTime)
+                                                console.log('readTime', readTime)
+                                                console.log('updateTime', updateTime)
+                                                console.log('deleteTime', deleteTime)
                                                 console.log('Total time elapsed', Date.now() - startTime)
                                             }
                                         })
@@ -41,10 +45,7 @@ export const OmniBridge: FC = () => {
                 console.error('Error adding user:', error);
             }
         }
-        console.log('createTime', createTime)
-        console.log('readTime', readTime)
-        console.log('updateTime', updateTime)
-        console.log('deleteTime', deleteTime)
+
     }
 
     return (
