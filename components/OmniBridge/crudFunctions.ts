@@ -1,9 +1,8 @@
-import { DbOptions } from "mongodb";
-import { DbTypes } from "../DbSelection/DbSelection";
+import { DbType } from "../DbSelection/DbSelection";
 import { User } from "@/lib/objects/User";
 
 
-export const createMultipleUsers = async (selectedDb: DbTypes) => {
+export const createMultipleUsers = async (selectedDb: DbType) => {
     const startTime = Date.now()
 
     return await fetch(`/api/${selectedDb}/createMultipleUsers`, {
@@ -23,7 +22,7 @@ export const createMultipleUsers = async (selectedDb: DbTypes) => {
     )
 }
 
-export const readAllUsers = async (selectedDb: DbTypes) => {
+export const readAllUsers = async (selectedDb: DbType) => {
     const startTime = Date.now()
 
     return await fetch(`/api/${selectedDb}/readAllUsers`, {
@@ -44,7 +43,7 @@ export const readAllUsers = async (selectedDb: DbTypes) => {
 
 }
 
-export const updateAllUsers = async (users: User[], selectedDb: DbTypes) => {
+export const updateAllUsers = async (users: User[], selectedDb: DbType) => {
     const startTime = Date.now()
 
     return await fetch(`/api/${selectedDb}/updateAllUsers`, {
@@ -65,7 +64,7 @@ export const updateAllUsers = async (users: User[], selectedDb: DbTypes) => {
     )
 }
 
-export const deleteAllUsers = async (selectedDb: DbTypes) => {
+export const deleteAllUsers = async (selectedDb: DbType) => {
     const startTime = Date.now()
 
     return await fetch(`/api/${selectedDb}/deleteAllUsers`, {

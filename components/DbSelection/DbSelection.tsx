@@ -2,11 +2,11 @@ import React, { FC } from 'react'
 import { DbButton } from './DbButton'
 import { SiPostgresql, TbBrandMongodb } from '../Iconst'
 
-export type DbTypes = "postgres" | "mongo" | undefined
+export type DbType = "postgres" | "mongo"
 
 export type DbSelectionProps = {
-    selectedDb: DbTypes
-    setSelectedDb: (db: DbTypes) => void
+    selectedDb: DbType
+    setSelectedDb: (db?: DbType) => void
 }
 
 export const DbSelection: FC<DbSelectionProps> = ({ selectedDb, setSelectedDb }) => {
@@ -15,7 +15,7 @@ export const DbSelection: FC<DbSelectionProps> = ({ selectedDb, setSelectedDb })
         return db === selectedDb
     }
 
-    const handleSelection = (db: DbTypes) => {
+    const handleSelection = (db?: DbType) => {
         if (db === selectedDb) {
             setSelectedDb(undefined)
             return

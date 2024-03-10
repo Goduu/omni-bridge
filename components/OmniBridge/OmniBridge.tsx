@@ -1,19 +1,20 @@
 "use client"
 import React, { FC, useState } from 'react'
-import { DbSelection, DbTypes } from '../DbSelection/DbSelection'
+import { DbSelection, DbType } from '../DbSelection/DbSelection'
 import { createMultipleUsers, deleteAllUsers, readAllUsers, updateAllUsers } from './crudFunctions'
+import { useLocalStorage } from '@/utils/useLocalStorage'
 
 export const OmniBridge: FC = () => {
-    const [selectedDb, setSelectedDb] = useState<DbTypes | undefined>()
+    const [selectedDb, setSelectedDb] = useState<DbType | undefined>()
+    const [crudTime, setCrudTime] = useLocalStorage("crudTime")
+    const crudTimesCopy = { ...crudTime }
 
     const handleRunCrud = async () => {
         const startTime = Date.now()
-        let createTime = 0
-        let readTime = 0
-        let updateTime = 0
-        let deleteTime = 0
+
 
         if (selectedDb) {
+            const dbCrudTime = crudTimesCopy[selectedDb]
             try {
                 createMultipleUsers(selectedDb).then((response) => {
                     if (response) {
