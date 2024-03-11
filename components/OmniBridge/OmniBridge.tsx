@@ -2,20 +2,23 @@
 import React, { FC, useState } from 'react'
 import { DbSelection, DbType } from '../DbSelection/DbSelection'
 import { createMultipleUsers, deleteAllUsers, readAllUsers, updateAllUsers } from './crudFunctions'
-import { useLocalStorage } from '@/utils/useLocalStorage'
+import { LocalStorageCrudTime, useLocalStorage } from '@/utils/useLocalStorage'
 
 export const OmniBridge: FC = () => {
     const [selectedDb, setSelectedDb] = useState<DbType | undefined>()
     const [crudTime, setCrudTime] = useLocalStorage("crudTime")
-    const crudTimesCopy = { ...crudTime }
 
     const handleRunCrud = async () => {
         const startTime = Date.now()
 
-
         if (selectedDb) {
-            const dbCrudTime = crudTimesCopy[selectedDb]
+            const dbCrudTime = selectedDb && crudTime?.[selectedDb]
             try {
+                let createTime: number
+                let readTime: number
+                let updateTime: number
+                let deleteTime: number
+
                 createMultipleUsers(selectedDb).then((response) => {
                     if (response) {
                         createTime = response.timeElapsed
@@ -33,6 +36,17 @@ export const OmniBridge: FC = () => {
                                                 console.log('updateTime', updateTime)
                                                 console.log('deleteTime', deleteTime)
                                                 console.log('Total time elapsed', Date.now() - startTime)
+
+                                                // Set the crudTime in local storage
+                                                selectedDb && setCrudTime({
+                                                    ...crudTime,
+                                                    [selectedDb]: {
+                                                        createTime,
+                                                        readTime,
+                                                        updateTime,
+                                                        deleteTime
+                                                    }
+                                                });
                                             }
                                         })
                                     }
@@ -40,13 +54,11 @@ export const OmniBridge: FC = () => {
                             }
                         })
                     }
-
                 })
             } catch (error) {
                 console.error('Error adding user:', error);
             }
         }
-
     }
 
     return (

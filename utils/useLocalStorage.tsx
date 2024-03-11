@@ -13,7 +13,7 @@ type LocalStorage = {
   }
 }
 
-type LocalStorageCrudTime = LocalStorage["crudTime"]
+export type LocalStorageCrudTime = LocalStorage["crudTime"]
 
 const localStorageInitialValues: LocalStorage = {
   crudTime: {
@@ -33,11 +33,11 @@ const localStorageInitialValues: LocalStorage = {
 }
 
 
-export const useLocalStorage = (item: keyof LocalStorage) => {
+export const useLocalStorage = (key: keyof LocalStorage) => {
   const [state, setState] = useState(() => {
     // Initialize the state
     try {
-      const crudTimes = typeof window !== 'undefined' && window.localStorage.getItem(item)
+      const crudTimes = typeof window !== 'undefined' && window.localStorage.getItem(key)
       // Check if the local storage already has any values,
       // otherwise initialize it with the passed initialValue
       return (crudTimes ? JSON.parse(crudTimes) : localStorageInitialValues) as LocalStorageCrudTime
@@ -46,13 +46,13 @@ export const useLocalStorage = (item: keyof LocalStorage) => {
     }
   })
 
-  const setValue = (value: Partial<LocalStorage>) => {
+  const setValue = (value: Partial<LocalStorageCrudTime> | undefined) => {
     try {
       // If the passed value is a callback function,
       //  then call it with the existing state.
       const valueToStore = value instanceof Function ? value(state) : value
-      window.localStorage.setItem(item, JSON.stringify(valueToStore))
-      setState({ ...state, item: value))
+      window.localStorage.setItem(key, JSON.stringify(valueToStore))
+      setState(valueToStore)
     } catch (error) {
       console.log(error)
     }

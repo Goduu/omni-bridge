@@ -5,7 +5,7 @@ import { SiPostgresql, TbBrandMongodb } from '../Iconst'
 export type DbType = "postgres" | "mongo"
 
 export type DbSelectionProps = {
-    selectedDb: DbType
+    selectedDb: DbType | undefined
     setSelectedDb: (db?: DbType) => void
 }
 
