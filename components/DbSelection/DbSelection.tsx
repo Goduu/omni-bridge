@@ -5,22 +5,23 @@ import { SiPostgresql, TbBrandMongodb } from '../Iconst'
 export type DbType = "postgres" | "mongo"
 
 export type DbSelectionProps = {
-    selectedDb: DbType | undefined
-    setSelectedDb: (db?: DbType) => void
+    selectedDbs: DbType[]
+    setSelectedDbs: (dbs: DbType[]) => void
 }
 
-export const DbSelection: FC<DbSelectionProps> = ({ selectedDb, setSelectedDb }) => {
+export const DbSelection: FC<DbSelectionProps> = ({ selectedDbs, setSelectedDbs }) => {
 
-    const active = (db: string) => {
-        return db === selectedDb
+    const active = (db: DbType) => {
+        return selectedDbs.includes(db)
     }
 
-    const handleSelection = (db?: DbType) => {
-        if (db === selectedDb) {
-            setSelectedDb(undefined)
+    const handleSelection = (db: DbType) => {
+        if (selectedDbs.includes(db)) {
+            const filteredDbs = selectedDbs.filter(selectedDb => selectedDb !== db)
+            setSelectedDbs(filteredDbs)
             return
         }
-        setSelectedDb(db)
+        setSelectedDbs([...selectedDbs, db])
     }
 
     return (

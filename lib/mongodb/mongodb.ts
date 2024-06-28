@@ -1,6 +1,7 @@
 import { MongoClient, ServerApiVersion } from 'mongodb';
 
 const uri = process.env.MONGODB_URI as string;
+console.log("URI---", uri)
 const options = {
   serverApi: {
     version: ServerApiVersion.v1,

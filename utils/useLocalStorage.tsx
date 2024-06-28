@@ -40,9 +40,10 @@ export const useLocalStorage = (key: keyof LocalStorage) => {
       const crudTimes = typeof window !== 'undefined' && window.localStorage.getItem(key)
       // Check if the local storage already has any values,
       // otherwise initialize it with the passed initialValue
-      return (crudTimes ? JSON.parse(crudTimes) : localStorageInitialValues) as LocalStorageCrudTime
+      return (crudTimes ? JSON.parse(crudTimes) : localStorageInitialValues) as LocalStorage[typeof key]
     } catch (error) {
       console.log(error)
+      return localStorageInitialValues[key]
     }
   })
 

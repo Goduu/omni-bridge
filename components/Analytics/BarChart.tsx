@@ -8,7 +8,8 @@ import {
     Title,
     Tooltip,
     Legend,
-    ChartOptions
+    ChartOptions,
+    ChartData
 } from 'chart.js';
 import { Bar } from 'react-chartjs-2';
 import { faker } from '@faker-js/faker';
@@ -61,6 +62,11 @@ export const data = {
     ],
 };
 
-export const BarChart: FC = () => {
+type BarChartProps = {
+    options?: ChartOptions<"bar">;
+    data: ChartData<"bar">;
+}
+
+export const BarChart: FC<BarChartProps> = ({ options, data }) => {
     return <Bar options={options} data={data} />;
 }
